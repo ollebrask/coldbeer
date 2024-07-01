@@ -25,7 +25,7 @@ const NavBar = () => {
             <NavLink
                 className={styles.NavLink}
                 activeClassName={styles.Active}
-                to="/login">
+                to="/signin">
                 <i className="fa-solid fa-right-to-bracket">Log in</i>
             </NavLink>
             <NavLink
