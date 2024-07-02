@@ -99,6 +99,13 @@ const NavBar = () => {
               to="/"
             >
               <i className="fa-solid fa-house"></i>Home
+            </NavLink><NavLink
+              exact
+              className={styles.NavLink}
+              activeClassName={styles.Active}
+              to="/contact"
+            >
+              <i className="fa-solid fa-address-book"></i>Contact us
             </NavLink>
             {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
