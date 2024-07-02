@@ -68,14 +68,14 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signin"
       >
-        <i className="fa-solid fa-right-to-bracket">Log in</i>
+        <i className="fa-solid fa-right-to-bracket"></i>Log in
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/signup"
       >
-        <i className="fa-solid fa-user-plus">Sign up</i>
+        <i className="fa-solid fa-user-plus"></i>Sign up
       </NavLink>
     </>
   );
@@ -98,7 +98,7 @@ const NavBar = () => {
               activeClassName={styles.Active}
               to="/"
             >
-              <i className="fa-solid fa-house">Home</i>
+              <i className="fa-solid fa-house"></i>Home
             </NavLink>
             {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
