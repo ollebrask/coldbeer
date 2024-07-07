@@ -1,62 +1,77 @@
-import React from 'react'
+import React from "react";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
+import { MoreDropdown } from "../../components/MoreDropdown";
 
 const Post = (props) => {
-    const {
-        id,
-        owner,
-        profile_id,
-        profile_image,
-        comments_count,
-        likes_count,
-        like_id,
-        title,
-        content,
-        image,
-        updated_at,
-        postPage,
-        setPosts,
-      } = props;
+  const {
+    id,
+    owner,
+    profile_id,
+    profile_image,
+    comments_count,
+    likes_count,
+    like_id,
+    title,
+    content,
+    image,
+    updated_at,
+    postPage,
+    setPosts,
+  } = props;
 
-      const currentUser = useCurrentUser();
-      const is_owner = currentUser?.username === owner;
+  const currentUser = useCurrentUser();
+  const is_owner = currentUser?.username === owner;
+  const history = useHistory();
 
-      const handleLike = async () => {
-        try {
-          const { data } = await axiosRes.post("/likes/", { post: id });
-          setPosts((prevPosts) => ({
-            ...prevPosts,
-            results: prevPosts.results.map((post) => {
-              return post.id === id
-                ? { ...post, likes_count: post.likes_count + 1, like_id: data.id }
-                : post;
-            }),
-          }));
-        } catch (err) {
-          console.log(err);
-        }
-      };
-    
-      const handleUnlike = async () => {
-        try {
-          await axiosRes.delete(`/likes/${like_id}/`);
-          setPosts((prevPosts) => ({
-            ...prevPosts,
-            results: prevPosts.results.map((post) => {
-              return post.id === id
-                ? { ...post, likes_count: post.likes_count - 1, like_id: null }
-                : post;
-            }),
-          }));
-        } catch (err) {
-          console.log(err);
-        }
-      };
+  const handleEdit = () => {
+    history.push(`/posts/${id}/edit`);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/posts/${id}/`);
+      history.goBack();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      const { data } = await axiosRes.post("/likes/", { post: id });
+      setPosts((prevPosts) => ({
+        ...prevPosts,
+        results: prevPosts.results.map((post) => {
+          return post.id === id
+            ? { ...post, likes_count: post.likes_count + 1, like_id: data.id }
+            : post;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUnlike = async () => {
+    try {
+      await axiosRes.delete(`/likes/${like_id}/`);
+      setPosts((prevPosts) => ({
+        ...prevPosts,
+        results: prevPosts.results.map((post) => {
+          return post.id === id
+            ? { ...post, likes_count: post.likes_count - 1, like_id: null }
+            : post;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Card className={styles.Post}>
@@ -68,7 +83,12 @@ const Post = (props) => {
           </Link>
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
-            {is_owner && postPage && "..."}
+            {is_owner && postPage && (
+              <MoreDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
           </div>
         </Media>
       </Card.Body>
@@ -92,7 +112,9 @@ const Post = (props) => {
             </span>
           ) : currentUser ? (
             <span onClick={handleLike}>
-              <i className={`fa-solid fa-beer-mug-empty ${styles.LikeOutline}`} />
+              <i
+                className={`fa-solid fa-beer-mug-empty ${styles.LikeOutline}`}
+              />
             </span>
           ) : (
             <OverlayTrigger
@@ -111,6 +133,6 @@ const Post = (props) => {
       </Card.Body>
     </Card>
   );
-}
+};
 
-export default Post
+export default Post;
