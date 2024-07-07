@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import { Image } from "react-bootstrap";
-import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
 import { axiosReq } from "../../api/axiosDefaults";
 
 import styles from "../../styles/PostCreateEditForm.module.css";
@@ -30,12 +30,21 @@ function PostCreateForm() {
 
   useEffect(() => {
     const fetchTags = async () => {
-      try {
-        const { data } = await axiosReq.get("/tags/");
-        setTags(data.map(tag => ({ value: tag.name, label: tag.name })));
-      } catch (err) {
-        console.log(err);
+      let allTags = [];
+      let nextUrl = "/tags/";
+
+      while (nextUrl) {
+        try {
+          const { data } = await axiosReq.get(nextUrl);
+          allTags = [...allTags, ...data.results];
+          nextUrl = data.next;
+        } catch (err) {
+          console.log(err);
+          break;
+        }
       }
+
+      setTags(allTags.map(tag => ({ value: tag.name, label: tag.name })));
     };
 
     fetchTags();
@@ -71,9 +80,7 @@ function PostCreateForm() {
 
     formData.append("title", title);
     formData.append("content", content);
-    if (imageInput.current.files[0]) {
-      formData.append("image", imageInput.current.files[0]);
-    }
+    formData.append("image", imageInput.current.files[0]);
     postData.tags.forEach(tag => formData.append("tags", tag));
 
     try {
@@ -120,7 +127,7 @@ function PostCreateForm() {
       ))}
       <Form.Group>
         <Form.Label>Tags</Form.Label>
-        <CreatableSelect
+        <Select
           isMulti
           name="tags"
           options={tags}
