@@ -1,31 +1,45 @@
-import React, { useRef, useState } from "react";
-
+import React, { useRef, useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
+import { Image } from "react-bootstrap";
+import CreatableSelect from "react-select/creatable";
+import { axiosReq } from "../../api/axiosDefaults";
 
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import { Image } from "react-bootstrap";
-import { useHistory } from "react-router";
-import { axiosReq } from "../../api/axiosDefaults";
 
 function PostCreateForm() {
   const [errors, setErrors] = useState({});
-
+  const [tags, setTags] = useState([]);
   const [postData, setPostData] = useState({
     title: "",
     content: "",
     image: "",
+    tags: [],
   });
   const { title, content, image } = postData;
 
   const imageInput = useRef(null);
   const history = useHistory();
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const { data } = await axiosReq.get("/tags/");
+        setTags(data.map(tag => ({ value: tag.name, label: tag.name })));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchTags();
+  }, []);
 
   const handleChange = (event) => {
     setPostData({
@@ -44,13 +58,23 @@ function PostCreateForm() {
     }
   };
 
+  const handleTagsChange = (selectedTags) => {
+    setPostData({
+      ...postData,
+      tags: selectedTags.map(tag => tag.value),
+    });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
 
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("image", imageInput.current.files[0]);
+    if (imageInput.current.files[0]) {
+      formData.append("image", imageInput.current.files[0]);
+    }
+    postData.tags.forEach(tag => formData.append("tags", tag));
 
     try {
       const { data } = await axiosReq.post("/posts/", formData);
@@ -94,10 +118,25 @@ function PostCreateForm() {
           {message}
         </Alert>
       ))}
-
+      <Form.Group>
+        <Form.Label>Tags</Form.Label>
+        <CreatableSelect
+          isMulti
+          name="tags"
+          options={tags}
+          className="basic-multi-select"
+          classNamePrefix="select"
+          onChange={handleTagsChange}
+        />
+      </Form.Group>
+      {errors?.tags?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Button
         className={`${btnStyles.Button} ${btnStyles.Gray}`}
-        onClick={() => {}}
+        onClick={() => history.goBack()}
       >
         cancel
       </Button>
