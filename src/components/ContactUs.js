@@ -32,7 +32,7 @@ const ContactUs = () => {
       setSuccess(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       setErrors(err.response?.data || {});
     }
   };
