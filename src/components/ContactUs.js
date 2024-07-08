@@ -102,8 +102,18 @@ const ContactUs = () => {
           </Alert>
         ))}
 
-        <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.LightGray}`} type="submit">Submit</Button>
-        {success && <Alert variant="success">Message sent successfully!</Alert>}
+        {success && (
+          <Alert variant="success" className="mt-2 mb-3">
+            Message sent successfully!
+          </Alert>
+        )}
+
+        <Button
+          className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.LightGray}`}
+          type="submit"
+        >
+          Submit
+        </Button>
       </Form>
     </div>
   );
