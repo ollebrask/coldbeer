@@ -13,8 +13,10 @@ import { axiosReq } from "../../api/axiosDefaults";
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import { useRedirect } from "../../hooks/useRedirect";
 
 function PostCreateForm() {
+  useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
   const [tags, setTags] = useState([]);
   const [postData, setPostData] = useState({
