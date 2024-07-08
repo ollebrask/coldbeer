@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import Info from "../components/Info";
 import ContactUs from "../components/ContactUs";
 import PostsPage from "./posts/PostsPage";
-import styles from "../styles/HomePage.module.css";
 
 const HomePage = () => {
   return (

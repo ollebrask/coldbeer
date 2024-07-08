@@ -113,16 +113,16 @@ const Post = (props) => {
             >
               <i className="fa-solid fa-beer-mug-empty" />
             </OverlayTrigger>
-          ) : like_id ? (
-            <span onClick={handleUnlike}>
-              <i className={`fa-solid fa-beer-mug-empty ${styles.Like}`} />
-            </span>
           ) : currentUser ? (
-            <span onClick={handleLike}>
-              <i
-                className={`fa-solid fa-beer-mug-empty ${styles.LikeOutline}`}
-              />
-            </span>
+            like_id ? (
+              <span onClick={handleUnlike}>
+                <i className={`fa-solid fa-beer-mug-empty ${styles.Like}`} />
+              </span>
+            ) : (
+              <span onClick={handleLike}>
+                <i className={`fa-solid fa-beer-mug-empty ${styles.LikeOutline}`} />
+              </span>
+            )
           ) : (
             <OverlayTrigger
               placement="top"
