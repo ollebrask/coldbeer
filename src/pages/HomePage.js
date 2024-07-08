@@ -9,18 +9,23 @@ const HomePage = () => {
   return (
     <Container>
       <Row>
-        <Col md={12}>
+        <Col xs={12}>
           <Info />
-        </Col>{" "}
-      </Row>{" "}
+        </Col>
+      </Row>
       <Row>
-        <Col md={8}>
-          <PostsPage message="No results found. Adjust the search keyword." />
-        </Col>{" "}
-        <Col md={4}>
+        <Col xs={12} className="d-md-none">
           <ContactUs />
-        </Col>{" "}
-      </Row>{" "}
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} md={8}>
+          <PostsPage message="No results found. Adjust the search keyword." />
+        </Col>
+        <Col md={4} className="d-none d-md-block">
+          <ContactUs />
+        </Col>
+      </Row>
     </Container>
   );
 };
