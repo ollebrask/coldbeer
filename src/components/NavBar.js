@@ -27,6 +27,12 @@ const NavBar = () => {
     }
   };
 
+  const handleLinkClick = (e, path) => {
+    if (window.location.pathname === path) {
+      window.location.reload();
+    }
+  };
+
   const addPostIcon = (
     <NavLink
       className={styles.NavLink}
@@ -43,6 +49,7 @@ const NavBar = () => {
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/liked"
+        onClick={(e) => handleLinkClick(e, "/liked")}
       >
         <i className="fa-solid fa-beer-mug-empty"></i>Liked
       </NavLink>
@@ -84,7 +91,7 @@ const NavBar = () => {
       fixed="top"
     >
       <Container>
-        <NavLink to="/">
+        <NavLink to="/" onClick={(e) => handleLinkClick(e, "/")}>
           <Navbar.Brand className={styles.Brand}>
             COLD BEER
           </Navbar.Brand>
@@ -102,6 +109,7 @@ const NavBar = () => {
               className={styles.NavLink}
               activeClassName={styles.Active}
               to="/"
+              onClick={(e) => handleLinkClick(e, "/")}
             >
               <i className="fa-solid fa-house"></i>Home
             </NavLink>
