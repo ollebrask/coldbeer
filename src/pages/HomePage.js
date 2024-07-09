@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Info from "../components/Info";
 import ContactUs from "../components/ContactUs";
 import PostsPage from "./posts/PostsPage";
+import styles from "../styles/HomePage.module.css";
 
 const HomePage = () => {
   return (
@@ -13,7 +14,7 @@ const HomePage = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs={12} className="d-md-none">
+        <Col xs={12} className={`d-md-none ${styles.ContactUsMobile}`}>
           <ContactUs />
         </Col>
       </Row>
