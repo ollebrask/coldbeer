@@ -30,9 +30,11 @@ const ContactUs = () => {
     try {
       await axiosReq.post("/contact/", formData);
       setSuccess(true);
+      setErrors({});
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
       // console.log(err);
+      setSuccess(false);
       setErrors(err.response?.data || {});
     }
   };
