@@ -110,7 +110,9 @@ const Post = (props) => {
               placement="top"
               overlay={<Tooltip>You can't like your own post!</Tooltip>}
             >
-              <i className="fa-solid fa-beer-mug-empty" />
+              <div className={styles.NoHoverWrapper}>
+                <i className={`fa-solid fa-beer-mug-empty ${styles.NoHover}`} />
+              </div>
             </OverlayTrigger>
           ) : currentUser ? (
             like_id ? (
@@ -119,7 +121,9 @@ const Post = (props) => {
               </span>
             ) : (
               <span onClick={handleLike}>
-                <i className={`fa-solid fa-beer-mug-empty ${styles.LikeOutline}`} />
+                <i
+                  className={`fa-solid fa-beer-mug-empty ${styles.LikeOutline}`}
+                />
               </span>
             )
           ) : (
@@ -127,7 +131,9 @@ const Post = (props) => {
               placement="top"
               overlay={<Tooltip>Log in to like posts!</Tooltip>}
             >
-              <i className="fa-solid fa-beer-mug-empty" />
+              <div className={styles.NoHoverWrapper}>
+                <i className={`fa-solid fa-beer-mug-empty ${styles.NoHover}`} />
+              </div>
             </OverlayTrigger>
           )}
           {likes_count}

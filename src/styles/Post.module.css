@@ -1,24 +1,33 @@
 .Post {
-    background-color: #ffffff;
-    border: 1px solid #dadadf;
-    border-radius: 2px;
-    margin-bottom: 16px;
-    text-align: center;
-  }
-  
-  .Post figure,
-  h5 {
-    margin: 0 0;
-  }
-  
-  .Like {
-    color: #343a40;
-  }
-  
-  .Like:hover {
-    color: #ffffff;
-  }
-  
-  .LikeOutline:hover {
-    color: #343a40;
-  }
+  background-color: #ffffff;
+  border: 1px solid #dadadf;
+  border-radius: 2px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.Post figure,
+h5 {
+  margin: 0 0;
+}
+
+.NoHoverWrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.NoHover {
+  pointer-events: none;
+}
+
+.Like {
+  color: #343a40;
+}
+
+.Like:hover {
+  color: #ffffff;
+}
+
+.LikeOutline:hover {
+  color: #343a40;
+}
