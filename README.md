@@ -58,10 +58,10 @@ Darker Gray (#6c757d): Used as background color of the Navigation bar.
 
 Orange (#f6950e): For the logo to make it pop out of the gray.
 
-
 ### Typography
 
- For its modern and approachable appearance, I have chosen [DM Sans](https://fonts.google.com/specimen/DM+Sans). This font is highly readable and web-friendly, making it ideal for both headings and body text.
+For its modern and approachable appearence, I have chosen [DM_Sans](https://fonts.google.com/specimen/DM+Sans). This font is highly readable and web-friendly, making it ideal for both headings and other text.
+
 ---
 
 ## Features
