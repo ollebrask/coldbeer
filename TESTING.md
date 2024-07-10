@@ -21,7 +21,7 @@ I got these warnings repeatedly because of that JSHint doesn't cover ESversions 
 
 ## Lighthouse
 
-![Lighthouse](/documentation/Lighthouse.png)
+![Lighthouse](/documentation/lighthouse.png)
 
 Lighthouse testing has been performed on all pages. No significants dropdowns except the homepage. Large images due to uploads.
 Best practices is something i need to review for future improvements, because lack of time for deadline.
@@ -92,13 +92,17 @@ Best practices is something i need to review for future improvements, because la
 
 During the development I solved a lot of bugs by reading the information in the terminal when running "npm start". 
 
-BUG: When I tried to login as a user from the frontend, it didn't work. I didn't get the correct response from the API:
+---
 
-    ![Lighthouse](/documentation/bug_1.png)
+BUG : When I tried to login as a user from the frontend, it didn't work. I didn't get the correct response from the API:
+
+![Bug](/documentation/bug_1.png)
 
 SOLUTION: 
 * I had the wrong version of dj-rest-auth and allauth installed. I installed the versions from the walkthrough.
 * I also had to remove all migrations file and create a new database, makemigrations and migrate.
+  
+---
 
 BUG: When I tried to upload a photo to a new post from my frontend I got error: POST 500 (Internal Server Error).
 
@@ -106,6 +110,8 @@ SOLUTION: Found solution on slack: In my requirements.txt in the backend I didn'
 pip3 install urllib3==1.26.15
 pip3 freeze > requirements.txt
 When I redeployed it worked.
+
+---
 
 ### Unsolved bugs
 
